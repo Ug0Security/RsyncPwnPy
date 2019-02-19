@@ -35,13 +35,13 @@ def findvnc(domain):
     try:
         host = domain.rstrip() + "::"
         
-        retvalue = os.popen("torify rsync --list-only " + host).readlines()
+        retvalue = os.popen("torify rsync --list-only " + host + " 2> /dev/null").readlines()
         list=[]
         for x in retvalue: 
             list.append(x.split(" ",1)[0])
         
         for i in list: 
-            retvalue2 = os.popen("torify sshpass rsync --list-only  " + host + i).readlines()
+            retvalue2 = os.popen("torify sshpass rsync --list-only  " + host + i + " 2> /dev/null").readlines()
             print (host + i + "\n" + "".join([str(x) for x in retvalue2]), file=open(OUTPUTFILE, "a"))
        
 
